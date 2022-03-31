@@ -52,7 +52,7 @@ RUN apt-get update && apt-get install -y gnupg ca-certificates pandoc
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
 
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 089EBE08314DF160
 
 # Enable UBUNTU GIS repository
 RUN echo  'deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu xenial main' >> /etc/apt/sources.list.d/ubuntugis.sources.list
