@@ -47,8 +47,20 @@
 # version of python isn't present. This should be fixed in a future release.
 FROM docker.repository.cloudera.com/cdsw/ml-runtime-workbench-python3.7-standard:2021.06.1-b5
 
+# Utilities
+RUN apt-get update && apt-get install -y gnupg ca-certificates pandoc
+
+# Enable UBUNTU GIS repository
+RUN echo  'deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu bionic main' >> /etc/apt/sources.list.d/ubuntugis.sources.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+
+
 # Updated the images with apt-get
 RUN apt-get update && apt-get upgrade -y
+
+# Install GEOSPATIAL UBUNTU PACKAGES
+RUN apt-get -y install libgdal-dev libproj-dev libgeos-dev libudunits2-dev libv8-dev libcairo2-dev libnetcdf-dev
+
 
 # Setup R Repos
 RUN apt-get install -y --no-install-recommends software-properties-common dirmngr gdebi-core
@@ -61,7 +73,10 @@ RUN add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_r
 # that models and # experiments don't use R-Studio as the editor, this is not a problem. Just make 
 # sure to keep consistency in R versions. The current CML R Runtime uses R 4.0.4, so that is the 
 # target version to install
-RUN apt-get install -y r-base-core=4.0.4-1.2004.0
+
+# INSTALL R
+RUN apt-get -y install r-base r-base-core r-recommended
+
 
 # Install R Studio
 RUN curl -O https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.4.1717-amd64.deb
@@ -99,3 +114,10 @@ com.cloudera.ml.runtime.short-version=$ML_RUNTIME_SHORT_VERSION \
 com.cloudera.ml.runtime.maintenance-version=$ML_RUNTIME_MAINTENANCE_VERSION \
 com.cloudera.ml.runtime.description=$ML_RUNTIME_DESCRIPTION \
 com.cloudera.ml.runtime.kernel=$ML_RUNTIME_KERNEL
+
+
+
+# Install R packages
+
+## Rspatial packages
+RUN R -e "install.packages(c('sf','tidyverse', 'future', 'furrr', 'future.apply', 'rgeos', 'ggplot2', 'spData', 'cartography'), repos='https://cran.rstudio.com/')"
