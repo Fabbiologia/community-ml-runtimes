@@ -50,16 +50,48 @@ FROM docker.repository.cloudera.com/cdsw/ml-runtime-workbench-python3.7-standard
 # Utilities
 RUN apt-get update && apt-get install -y gnupg ca-certificates pandoc
 
-# Enable UBUNTU GIS repository
-RUN echo  'deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu bionic main' >> /etc/apt/sources.list.d/ubuntugis.sources.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 
+RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+
+RUN apt-get update
+RUN apt-get upgrade -y
+
+RUN export DEBIAN_FRONTEND=noninteractive; apt-get -y update \
+ && apt-get install -y \
+	libcurl4-openssl-dev \
+	qpdf \
+	pandoc \
+	make \
+	wget \
+	git \
+	libgdal-dev \
+	libgeos-dev \
+	libproj-dev \
+	liblwgeom-dev \
+	libudunits2-dev \
+	postgis \
+	r-base-dev
+
+RUN apt-get install -y texinfo \
+       texlive-base \
+       texlive-extra-utils \
+       texlive-fonts-extra \
+       texlive-fonts-recommended \
+       texlive-generic-recommended \
+       texlive-latex-base \
+       texlive-latex-extra \
+       texlive-latex-recommended
+
+# stuff for the tmaptools/rmapshaper/geojsonio etc stack:
+RUN apt-get install -y libv8-3.14-dev libprotobuf-dev protobuf-compiler libcairo2-dev
+RUN add-apt-repository -y ppa:opencpu/jq
+RUN apt-get update
+RUN apt-get install -y libjq-dev
 
 # Updated the images with apt-get
 RUN apt-get update && apt-get upgrade -y
-
-# Install GEOSPATIAL UBUNTU PACKAGES
-RUN apt-get -y install libgdal-dev libproj-dev libgeos-dev libudunits2-dev libv8-dev libcairo2-dev libnetcdf-dev
 
 
 # Setup R Repos
@@ -120,4 +152,4 @@ com.cloudera.ml.runtime.kernel=$ML_RUNTIME_KERNEL
 # Install R packages
 
 ## Rspatial packages
-RUN R -e "install.packages(c('sf','tidyverse', 'future', 'furrr', 'future.apply', 'rgeos', 'ggplot2', 'spData', 'cartography'), repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages(c('sf','tidyverse', 'future', 'furrr', 'future.apply', 'rgeos', 'ggplot2', 'spData', 'cartography', 'lwgeom', 'covr', 'raster'), dependencies = T, repos='https://cran.rstudio.com/')"
