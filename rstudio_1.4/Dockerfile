@@ -63,14 +63,7 @@ RUN apt-get update
 RUN apt-get upgrade -y
 
 # Install GEOSPATIAL UBUNTU PACKAGES
-RUN apt-get -y install libgdal-dev libproj-dev libgeos-dev libudunits2-dev libv8-dev libcairo2-dev libnetcdf-dev
-
-
-# stuff for the tmaptools/rmapshaper/geojsonio etc stack:
-RUN apt-get install -y libv8-3.14-dev libprotobuf-dev protobuf-compiler libcairo2-dev
-RUN add-apt-repository -y ppa:opencpu/jq
-RUN apt-get update
-RUN apt-get install -y libjq-dev
+RUN apt-get -y install libgdal-dev libproj-dev libgeos-dev libudunits2-dev libcairo2-dev libnetcdf-dev
 
 # Updated the images with apt-get
 RUN apt-get update && apt-get upgrade -y
