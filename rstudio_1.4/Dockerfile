@@ -50,7 +50,6 @@ FROM docker.repository.cloudera.com/cdsw/ml-runtime-workbench-python3.7-standard
 # Utilities
 RUN apt-get update && apt-get install -y gnupg ca-certificates pandoc
 
-RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable
 
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
