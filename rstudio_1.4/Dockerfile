@@ -49,7 +49,7 @@ FROM docker.repository.cloudera.com/cdsw/ml-runtime-workbench-python3.7-standard
 
 # Utilities
 RUN apt-get update && apt-get install -y gnupg ca-certificates pandoc
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
 
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
