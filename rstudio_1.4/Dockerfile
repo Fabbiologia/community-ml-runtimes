@@ -66,16 +66,6 @@ RUN apt-get upgrade -y
 RUN apt-get -y install libgdal-dev libproj-dev libgeos-dev libudunits2-dev libv8-dev libcairo2-dev libnetcdf-dev
 
 
-RUN apt-get install -y texinfo \
-       texlive-base \
-       texlive-extra-utils \
-       texlive-fonts-extra \
-       texlive-fonts-recommended \
-       texlive-generic-recommended \
-       texlive-latex-base \
-       texlive-latex-extra \
-       texlive-latex-recommended
-
 # stuff for the tmaptools/rmapshaper/geojsonio etc stack:
 RUN apt-get install -y libv8-3.14-dev libprotobuf-dev protobuf-compiler libcairo2-dev
 RUN add-apt-repository -y ppa:opencpu/jq
