@@ -54,24 +54,17 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
 RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/  " >> /etc/apt/sources.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 
+# Enable UBUNTU GIS repository
+RUN echo  'deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu xenial main' >> /etc/apt/sources.list.d/ubuntugis.sources.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+
+
 RUN apt-get update
 RUN apt-get upgrade -y
 
-RUN export DEBIAN_FRONTEND=noninteractive; apt-get -y update \
- && apt-get install -y \
-	libcurl4-openssl-dev \
-	qpdf \
-	pandoc \
-	make \
-	wget \
-	git \
-	libgdal-dev \
-	libgeos-dev \
-	libproj-dev \
-	liblwgeom-dev \
-	libudunits2-dev \
-	postgis \
-	r-base-dev
+# Install GEOSPATIAL UBUNTU PACKAGES
+RUN apt-get -y install libgdal-dev libproj-dev libgeos-dev libudunits2-dev libv8-dev libcairo2-dev libnetcdf-dev
+
 
 RUN apt-get install -y texinfo \
        texlive-base \
