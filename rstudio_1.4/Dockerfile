@@ -86,7 +86,7 @@ RUN ln -s /usr/local/bin/rstudio-cml /usr/local/bin/ml-runtime-editor
 # Set the ENV and LABEL details for this Runtime
 # The final requirement is to set various labels and environment variables that CML needs 
 # to pick up the Runtime's details. Here the editor is to RStudio
-ENV ML_RUNTIME_EDITOR="RStudio" \ 
+ENV ML_RUNTIME_EDITOR="RStudioF" \ 
 ML_RUNTIME_EDITION="RStudio my test"	\ 
 ML_RUNTIME_SHORT_VERSION="2021.09" \
 ML_RUNTIME_MAINTENANCE_VERSION="3" \
