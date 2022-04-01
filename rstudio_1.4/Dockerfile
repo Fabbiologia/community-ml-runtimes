@@ -47,8 +47,6 @@
 # version of python isn't present. This should be fixed in a future release.
 FROM docker.repository.cloudera.com/cdsw/ml-runtime-workbench-python3.7-standard:2021.06.1-b5
 
-RUN timedatectl set-local-rtc 1
-
 # Updated the images with apt-get
 RUN apt-get update && apt-get upgrade -y
 
