@@ -40,6 +40,7 @@
 #
 ############################################################################
 
+RUN timedatectl set-local-rtc 1
 
 # Start with a Base CML Runtime
 # Note: This particular image will use the Python base image, not R as expected. There is a
