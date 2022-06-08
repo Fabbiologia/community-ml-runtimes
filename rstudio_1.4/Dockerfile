@@ -47,10 +47,9 @@
 # version of python isn't present. This should be fixed in a future release.
 FROM docker.repository.cloudera.com/cdsw/ml-runtime-workbench-python3.7-standard:2021.06.1-b5
 
-RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
-
 # Updated the images with apt-get
 RUN apt-get update && apt-get upgrade -y
+RUN apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev libfontconfig1-dev
 
 # Setup R Repos
 RUN apt-get install -y --no-install-recommends software-properties-common dirmngr gdebi-core
@@ -87,7 +86,7 @@ RUN ln -s /usr/local/bin/rstudio-cml /usr/local/bin/ml-runtime-editor
 # The final requirement is to set various labels and environment variables that CML needs 
 # to pick up the Runtime's details. Here the editor is to RStudio
 ENV ML_RUNTIME_EDITOR="RStudio" \ 
-ML_RUNTIME_EDITION="RStudio my test" \ 
+ML_RUNTIME_EDITION="RStudio Community Runtime"	\ 
 ML_RUNTIME_SHORT_VERSION="2021.09" \
 ML_RUNTIME_MAINTENANCE_VERSION="3" \
 ML_RUNTIME_FULL_VERSION="2021.09.3" \
